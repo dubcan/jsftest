@@ -13,17 +13,8 @@
 <h:body>
 
 	<h2>Test JSF main menu 3</h2>
-	<h:link outcome="bindcard/registerUser.xhtml"
+	<h:link outcome="bindcard/bindCard.xhtml"
 		value="Bind card (test multiple forms with ajax)" />
-
-	<h2>Test ajax</h2>
-	<h:form id="testForm">
-		<h:outputScript name="jsftest.js" target="head" />
-		<h:commandButton value="Submit">
-			<f:ajax onevent="msg" />
-		</h:commandButton>
-		<h:outputText id="result" value="" />
-	</h:form>
 
 </h:body>
 </html>

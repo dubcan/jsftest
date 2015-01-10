@@ -1,15 +1,25 @@
-var msg = function msg(data) {
+var showUserForm = function showUserForm(data) {
+	console.log("showUserForm starting...")
+	if (data.status != "success")
+		return;
+	
+	
+	console.log("hide init form and show user form")
+	document.getElementById("initForm").style.display = "none";
+	document.getElementById("registerUserForm").style.display = "inline-block";
+	
+}
+
+var showCardRegisterForm = function showCardRegisterForm(data) {
 	console.log("msg starting...")
 	if (data.status != "success")
 		return;
 
-	// getElementsByTagName
-
 	function hasErrors() {
 		console.log("has errors called");
-		var errorAreas = [ "registerUser:nameErrorMessage",
-				"registerUser:surnameErrorMessage",
-				"registerUser:emailErrorMessage", "registerCard:",
+		var errorAreas = [ "registerUserForm:nameErrorMessage",
+				"registerUserForm:surnameErrorMessage",
+				"registerUserForm:emailErrorMessage", "registerCard:",
 				"registerCard:", "registerCard:", ];
 
 		return errorAreas.some(function(entry) {
@@ -29,7 +39,7 @@ var msg = function msg(data) {
 
 	if (!hasErrors()) {
 		console.log("no errors! now show next form");
-		document.getElementById("registerCard").style.display = "inline-block";
+		document.getElementById("registerCardForm").style.display = "inline-block";
 	} else {
 		console.log("we have errors!");
 	}

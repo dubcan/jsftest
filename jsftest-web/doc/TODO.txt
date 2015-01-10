@@ -2,4 +2,3 @@ add ivy
 use log.trace for logging (on local machine I failed to configure TRACE level, now only INFO usage temporary)
 add ant build scripts
 use templates
-add validation	

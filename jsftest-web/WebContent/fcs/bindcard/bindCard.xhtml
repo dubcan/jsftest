@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Bind card page</title>
+</h:head>
+<h:body>
+	<h3>Welcome to the card binding page!</h3>
+	<h4>Тут просто надуманный пример. На архитектуру EJB и вызовы их методов смотреть не стоит. Я просто взял формы для привязки карты
+		cybersource и притянул за уши их к задаче.</h4>
+
+	<h:form id="initForm">
+		<h:outputScript name="jsftest.js" />
+		<h:commandButton value="Start binding card"
+			action="#{bindCard.startBinding}">
+			<f:ajax onevent="showUserForm" />
+		</h:commandButton>
+	</h:form>
+
+	<h:form id="registerUserForm" style="display:none;">
+		<h3>Card binding step 1;</h3>
+		<h2>User info:</h2>
+		<h:panelGrid columns="3">
+
+			<h:outputText value="Name: " />
+			<h:inputText id="name" value="#{bindCard.name}"
+				validatorMessage="Please insert name">
+				<f:validateRequired />
+			</h:inputText>
+			<h:message style="color:red" for="name" id="nameErrorMessage" />
+
+			<h:outputText value="Surname: " />
+			<h:inputText id="surname" value="#{bindCard.surname}"
+				validatorMessage="Please insert surname">
+				<f:validateRequired />
+			</h:inputText>
+			<h:message style="color:red" for="surname" id="surnameErrorMessage" />
+
+
+			<h:outputText value="Country: " />
+			<h:selectOneMenu id="country" value="#{bindCard.country}">
+				<f:selectItems value="#{bindCard.countriesSelectItems}" />
+			</h:selectOneMenu>
+			<h:message />
+
+			<h:outputText value="Email: " />
+			<h:inputText id="email" value="#{bindCard.email}"
+				validatorMessage="Please insert correct email">
+				<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+			</h:inputText>
+			<h:message style="color:red" for="email" id="emailErrorMessage" />
+
+			<h:commandButton value="Next" action="#{bindCard.registerUser}">
+				<f:ajax execute="name surname country email"
+					render="nameErrorMessage surnameErrorMessage emailErrorMessage"
+					onevent="showCardRegisterForm" />
+			</h:commandButton>
+		</h:panelGrid>
+	</h:form>
+	
+	<br />
+
+	<h:form id="registerCardForm" style="display:none;">
+		<h:outputScript name="jsftest.js" />
+		<h2>Card binding step 2; Card info:</h2>
+		<h:panelGrid columns="3">
+
+			<h:outputText value="Card type: " />
+			<h:selectOneRadio id="cardType" value="#{bindCard.cardType}"
+				converter="cardTypeConverter" required="true"
+				requiredMessage="Please make a choice!"
+				validatorMessage="Please choose card type">
+				<f:validateRequired />
+				<f:selectItem itemValue="VISA" itemLabel="Visa" />
+				<f:selectItem itemValue="MASTERCARD" itemLabel="MasterCard" />
+			</h:selectOneRadio>
+			<h:message style="color:red" for="cardType" id="cardTypeMessage" />
+
+			<h:outputText value="Number: " />
+			<h:inputText id="number" value="#{bindCard.number}"
+				validatorMessage="Please insert correct card number (16 digits)">
+				<f:validateRequired />
+				<f:validateLength minimum="16" maximum="16" />
+				<f:convertNumber integerOnly="true" />
+			</h:inputText>
+			<h:message style="color:red" for="number" id="numberMessage" />
+
+			<h:outputText value="Cvc code: " />
+			<h:inputText id="cvc" value="#{bindCard.cvc}"
+				validatorMessage="Please insert correct cvc code (3 digits)">
+				<f:validateRequired />
+				<f:validateLongRange minimum="0" maximum="999" />
+				<f:validateLength minimum="3" maximum="3" />
+				<f:convertNumber integerOnly="true" />
+			</h:inputText>
+			<h:message style="color:red" for="cvc" id="cvcCodeMessage" />
+
+			<h:outputText value="Date expired (dd.MM.yyyy): " />
+			<h:inputText id="expiredDate" value="#{bindCard.expired}"
+				validatorMessage="Please insert correct date in format dd.MM.yyyy">
+				<f:validateRequired />
+				<f:convertDateTime pattern="dd.MM.yyyy" />
+			</h:inputText>
+			<h:message style="color:red" for="expiredDate"
+				id="expiredDateMessage" />
+			<h:commandButton value="Bind card" type="submit"
+				action="#{bindCard.registerCard}">
+				<f:ajax execute="@form"
+					render="cardTypeMessage numberMessage cvcCodeMessage expiredDateMessage" />
+			</h:commandButton>
+
+		</h:panelGrid>
+	</h:form>
+
+	<h3>Some footer information here.</h3>
+</h:body>
+
+</html>
