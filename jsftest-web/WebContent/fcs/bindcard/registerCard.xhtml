@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Card Info</title>
+</h:head>
+<h:body>
+	<h2>Card binding step 2; Card info:</h2>
+	<h:form>
+		<h:panelGrid columns="3">
+
+			<h:outputText value="Card type: " />
+			<h:selectOneRadio id="cardType" value="#{cardRegistrarMB.cardType}"
+				converter="cardTypeConverter" required="true"
+				requiredMessage="Please make a choice!"
+				validatorMessage="Please choose card type">
+				<f:validateRequired />
+				<f:selectItem itemValue="VISA" itemLabel="Visa" />
+				<f:selectItem itemValue="MASTERCARD" itemLabel="MasterCard" />
+			</h:selectOneRadio>
+			<h:message style="color:red" for="cardType" id="cardTypeMessage" />
+
+			<h:outputText value="Number: " />
+			<h:inputText id="number" value="#{cardRegistrarMB.number}"
+				validatorMessage="Please insert correct card number (16 digits)">
+				<f:validateRequired />
+				<f:validateLength minimum="16" maximum="16" />
+				<f:convertNumber integerOnly="true" />
+			</h:inputText>
+			<h:message style="color:red" for="number" id="numberMessage" />
+
+			<h:outputText value="Cvc code: " />
+			<h:inputText id="cvc" value="#{cardRegistrarMB.cvc}"
+				validatorMessage="Please insert correct cvc code (3 digits)">
+				<f:validateRequired />
+				<f:validateLongRange minimum="0" maximum="999" />
+				<f:validateLength minimum="3" maximum="3" />
+				<f:convertNumber integerOnly="true" />
+			</h:inputText>
+			<h:message style="color:red" for="cvc" id="cvcCodeMessage" />
+
+			<h:outputText value="Date expired (dd.MM.yyyy): " />
+			<h:inputText id="expiredDate" value="#{cardRegistrarMB.expired}"
+				validatorMessage="Please insert correct date in format dd.MM.yyyy">
+				<f:validateRequired />
+				<f:convertDateTime pattern="dd.MM.yyyy" />
+			</h:inputText>
+			<h:message style="color:red" for="expiredDate"
+				id="expiredDateMessage" />
+			<h:commandButton value="Bind card" type="submit"
+				action="#{cardRegistrarMB.register}">
+				<f:ajax execute="@form"
+					render="cardTypeMessage numberMessage cvcCodeMessage expiredDateMessage" />
+			</h:commandButton>
+
+		</h:panelGrid>
+	</h:form>
+</h:body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Test JSF main menu</title>
+</h:head>
+<h:body>
+
+	<h2>Test JSF main menu 3</h2>
+	<h:link outcome="bindcard/registerUser.xhtml"
+		value="Bind card (test multiple forms with ajax)" />
+
+	<h2>Test ajax</h2>
+	<h:form id="testForm">
+		<h:outputScript name="jsftest.js" target="head" />
+		<h:commandButton value="Submit">
+			<f:ajax onevent="msg" />
+		</h:commandButton>
+		<h:outputText id="result" value="" />
+	</h:form>
+
+</h:body>
+</html>
