@@ -9,21 +9,21 @@
 	<ui:define name="popupTitle">Foo modal form</ui:define>
 	<ui:define name="popupHead" />
 	<ui:define name="popupContent">
-		<h:form prependId="false">
+		<h:panelGroup layout="block" id="content">
+			<h:form id="fio" rendered="#{!fooModal.nextButtonClicked}">
 				<table>
 					<tr>
-						<td colspan="3" class="contTitle">Foo modal form</td>
+						<td colspan="3" class="contTitle">Foo modal form. Step 1. FIO</td>
 					</tr>
 					<tr>
 						<td>Фамилия <font color="red">*</font></td>
 						<td style="width: 25px"></td>
 						<td><h:inputText id="firstName" style="width: 200px"
 								required="true" maxlength="30"
-								requiredMessage="Поле 'Фамилия' обязательно для заполнения" />
-						</td>
+								requiredMessage="Поле 'Фамилия' обязательно для заполнения" /></td>
 					</tr>
-					
-					
+
+
 					<tr>
 						<td>Имя <font color="red">*</font></td>
 						<td style="width: 25px"></td>
@@ -35,10 +35,55 @@
 						<td>Отчество</td>
 						<td style="width: 25px"></td>
 						<td><h:inputText id="lastName" style="width: 200px"
-								maxlength="30"/>
-						</td>
+								maxlength="30" /></td>
 					</tr>
+
 				</table>
-		</h:form>
+				<h:commandButton value="Дальше" action="#{fooModal.next}">
+					<f:ajax render=":content" />
+				</h:commandButton>
+			</h:form>
+
+			<h:form id="address" rendered="#{fooModal.nextButtonClicked}">
+				<table>
+					<tr>
+						<td colspan="3" class="contTitle">Foo modal form. Step 2.
+							Address</td>
+					</tr>
+					<tr>
+						<td>Страна <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="country" style="width: 200px"
+								required="true" maxlength="30" /></td>
+					</tr>
+
+
+					<tr>
+						<td>Город <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="city" style="width: 200px"
+								required="true" maxlength="30" /></td>
+					</tr>
+					<tr>
+						<td>Улица</td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="street" style="width: 200px"
+								maxlength="30" /></td>
+					</tr>
+
+				</table>
+				<h:commandButton immediate="true" value="Назад" onclick="closeWindow(); return false;" />
+				<h:commandButton value="Завершить" action="#{fooModal.finish}" onclick="closeWindow();" />
+			</h:form>
+
+			<script language="javascript">
+				function closeWindow() {
+					console.log("close window!!");
+					window.close();
+				}
+			</script>
+
+		</h:panelGroup>
+
 	</ui:define>
 </ui:composition>

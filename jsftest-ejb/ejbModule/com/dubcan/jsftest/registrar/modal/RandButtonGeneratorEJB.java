@@ -24,7 +24,8 @@ public class RandButtonGeneratorEJB implements RandButtonGenerator {
 	@Override
 	public RandButton getRandButton() {
 		log.info("starting...");
-		RandButton result = RandButton.values()[(int) (Math.random() * RandButton.values().length)];
+		//RandButton result = RandButton.values()[(int) (Math.random() * RandButton.values().length)];
+		RandButton result = RandButton.FOO; //temporary only for test
 		log.info("finished. result = {}", result);
 		return result;
 	}
