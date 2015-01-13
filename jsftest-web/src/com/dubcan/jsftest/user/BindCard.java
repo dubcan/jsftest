@@ -93,7 +93,7 @@ public class BindCard {
 					}
 				});
 		log.info("finished. result = {}", result);
-		return "success";
+		return result;
 	}
 
 	public Collection<SelectItem> getCountriesSelectItems() {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/fcs/popup_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="popupTitle">Bar modal form</ui:define>
+	<ui:define name="popupHead" />
+	<ui:define name="popupContent">
+		<h:form prependId="false">
+				<table>
+					<tr>
+						<td colspan="3" class="contTitle">Bar modal form</td>
+					</tr>
+					<tr>
+						<td>Фамилия <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="firstName" style="width: 200px"
+								required="true" maxlength="30"
+								requiredMessage="Поле 'Фамилия' обязательно для заполнения" />
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<td>Имя <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="secondName" style="width: 200px"
+								required="true" maxlength="30"
+								requiredMessage="Поле 'Имя' обязательно для заполнения" /></td>
+					</tr>
+					<tr>
+						<td>Отчество</td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="lastName" style="width: 200px"
+								maxlength="30"/>
+						</td>
+					</tr>
+				</table>
+		</h:form>
+	</ui:define>
+</ui:composition>

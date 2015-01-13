@@ -30,7 +30,7 @@ var showCardRegisterForm = function showCardRegisterForm(data) {
 			}
 
 			if (errorArea.innerHTML !== null && errorArea.innerHTML !== "") {
-				console.log("shit! we have errors on " + entry + "!");
+				console.log("we have errors on " + entry + "!");
 				return true;
 			}
 

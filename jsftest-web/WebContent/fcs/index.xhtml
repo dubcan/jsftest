@@ -12,9 +12,12 @@
 </h:head>
 <h:body>
 
-	<h2>Test JSF main menu 3</h2>
-	<h:link outcome="bindcard/bindCard.xhtml"
-		value="Bind card (test multiple forms with ajax)" />
-
+	<h:form>
+		<h:commandButton value="Получить случайную кнопку (A, B, C)"
+			action="#{modal.getMainModal}">
+			<f:ajax />
+		</h:commandButton>
+	</h:form>
+	
 </h:body>
 </html>
