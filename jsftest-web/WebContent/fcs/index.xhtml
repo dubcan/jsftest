@@ -13,11 +13,15 @@
 <h:body>
 
 	<h:form>
-		<h:commandButton value="Получить случайную кнопку (A, B, C)"
+		<h:commandButton value="Перейти на страницу со случайной кнопкой (Foo, Bar, Baz), которая вызовет модальный диалог"
 			action="#{modal.getMainModal}">
 			<f:ajax />
 		</h:commandButton>
 	</h:form>
 	
+	<h:link outcome="bindcard/bindCard.xhtml"
+		value="Bind card (старая неактуальная версия нескольких форм)" />
+	<br />
+
 </h:body>
 </html>
