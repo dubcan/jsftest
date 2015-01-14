@@ -39,10 +39,16 @@
         <dependent-module archiveName="jsf-impl.jar" deploy-path="/lib" handle="module:/classpath/lib/jsftest-lib/jsf-rf/jsf-impl.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="richfaces-core-api-4.0.0.Final.jar" deploy-path="/lib" handle="module:/classpath/lib/jsftest-lib/jsf-rf/richfaces-core-api-4.0.0.Final.jar">
+        <dependent-module archiveName="guava-14.0.1.jar" deploy-path="/lib" handle="module:/classpath/lib/jsftest-lib/guava/guava-14.0.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="guava-14.0.1.jar" deploy-path="/lib" handle="module:/classpath/lib/jsftest-lib/guava/guava-14.0.1.jar">
+        <dependent-module archiveName="richfaces-core-impl-4.0.0.Final.jar" deploy-path="/lib" handle="module:/classpath/lib/jsftest-lib/jsf-rf/richfaces-core-impl-4.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="richfaces-components-api-4.0.0.Final.jar" deploy-path="/lib" handle="module:/classpath/lib/jsftest-lib/jsf-rf/richfaces-components-api-4.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="richfaces-components-ui-4.0.0.Final.jar" deploy-path="/lib" handle="module:/classpath/lib/jsftest-lib/jsf-rf/richfaces-components-ui-4.0.0.Final.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

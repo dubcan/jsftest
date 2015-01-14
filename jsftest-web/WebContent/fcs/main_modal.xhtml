@@ -4,48 +4,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
-	<title>Main modal page</title>
+	<title>Test JSF main menu</title>
 </h:head>
 <h:body>
-	<h2>Main modal page. Random generated button present here, than opens modal window</h2>
-	<h:form>
-		<h:commandButton style="width: 420px" type="button" id="modalButton"
-			value="#{modal.randButtonTitle}"
-			onclick="showModal(this.value); return false;">
-		</h:commandButton>
-		<script language="javascript">
-			function showModal(buttonLabel) {
-				
-				//var buttonLabel = "get button label from DOM";
-				console.log("buttonLabel = " + buttonLabel);
-				var reportUrl = window.showModalDialog(
-						'/jsftest-web/fcs/' + getModalPageName(buttonLabel) + '.xhtml', '',
-						'dialogWidth:600px;dialogHeight:620px');
-				if (reportUrl !== undefined) {
-					window.open('' + reportUrl);
-				}
-			}
-			
-			function getModalPageName(buttonTitle) {
-				switch (buttonTitle) {
-				  case "Foo":
-					  return "foo_modal";
-				  case "Bar":
-					  return "bar_modal";
-				  case "Baz":
-					  return "baz_modal";
-				  default:
-				    alert('Unknown button')
-				}
-				
-			}
-			
-		</script>
-	</h:form>
+	
+	<h:commandButton value="Call the popup">
+        <rich:componentControl target="popup" operation="show" />
+    </h:commandButton>
+    <rich:popupPanel id="popup" modal="true" resizeable="true" onmaskclick="#{rich:component('popup')}.hide()">
+        <f:facet name="header">
+            <h:outputText value="Simple popup panel" />
+        </f:facet>
+        <f:facet name="controls">
+            <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">
+                X
+            </h:outputLink>
+        </f:facet>
+        <p>You can also check and trigger events if the use clicks outside of the panel.</p>
+ 
+        <p>In this example clicking outside closes the panel.</p>
+    </rich:popupPanel>
 
 </h:body>
-
 </html>
