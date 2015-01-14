@@ -73,9 +73,14 @@
 					</tr>
 
 				</table>
-				<h:commandButton value="Завершить" action="#{fooModal.finish}" >
-					<f:ajax  execute="@form" render="@form" />
-				</h:commandButton>
+				
+				<h:commandButton value="Click me" onclick="populateTheForm('hiddenForm'); document.getElementById('hiddenForm:invisibleClickTarget').click(); return false;" />
+			</h:form>
+			
+			<h:form id="hiddenForm" style="display: none;">
+			    <h:commandButton id="invisibleClickTarget" />
+			        <f:ajax execute="@form" listener="#{fooModal.finish}" />
+			    </h:commandButton>
 			</h:form>
 
 			<script language="javascript">

@@ -14,11 +14,14 @@
 </h:head>
 <h:body>
 
-	<h:commandButton value="Call the popup">
-		<rich:componentControl target="popup" operation="show" />
-	</h:commandButton>
-	<rich:popupPanel id="popup" modal="true" resizeable="true"
-		>
+	<h:form>
+		<h:outputText valeu="Main input: " />
+		<h:inputText id="mainInput" />
+		<h:commandButton value="Call the popup">
+			<rich:componentControl target="popup" operation="show" />
+		</h:commandButton>
+	</h:form>
+	<rich:popupPanel id="popup" modal="true" resizeable="true">
 
 		<f:facet name="header">
 			<h:outputText value="Simple popup panel" />
@@ -60,7 +63,7 @@
 					</tr>
 
 				</table>
-				<h:commandButton value="Дальше" action="#{fooModal.next}" >
+				<h:commandButton value="Дальше" action="#{fooModal.next}">
 					<f:ajax render=":content :address" />
 				</h:commandButton>
 			</h:form>
@@ -93,36 +96,84 @@
 					</tr>
 
 				</table>
-				<h:commandButton value="Завершить" action="#{fooModal.finish}">
-					<!-- <f:ajax execute="@form" render="@form" /> -->
+
+				<h:commandButton value="Дальше">
+					<f:ajax onevent="showDetailedLocation" />
 				</h:commandButton>
+				<script language="javascript">
+					function showDetailedLocation() {
+						console.log("showDetailedLocation called");
+						document.getElementById("address").style.display = "none";
+						document.getElementById("detailedLocation").style.display = "inline-block";
+					}
+			
+			</script>
 			</h:form>
 
-			<script language="javascript">
-				function closeWindow() {
-					console.log("close window!!");
-					window.close();
+			<h:panelGroup id="detailedLocation" style="display:none;">
+				<table>
+					<tr>
+						<td colspan="3" class="contTitle">Foo modal form. Step 3.
+							Detailed Location</td>
+					</tr>
+					<tr>
+						<td>Дом <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="building" style="width: 200px"
+								required="true" maxlength="30" /></td>
+					</tr>
+
+
+					<tr>
+						<td>Корпус <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="case" style="width: 200px"
+								required="true" maxlength="30" /></td>
+					</tr>
+					<tr>
+						<td>Квартира</td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="flat" style="width: 200px"
+								maxlength="30" /></td>
+					</tr>
+
+				</table>
+				<h:commandButton value="Click me"
+					onclick="populateTheForm('hiddenForm'); document.getElementById('hiddenForm:invisibleClickTarget').click(); return false;">
+					</h:commandButton>
+
+				<script language="javascript">
+				function populateTheForm(formLabel) {
+					console.log("fill the data into hiddenForm's fields.");
 				}
-			</script>
+				</script>
+			</h:panelGroup>
+
+			<!-- TODO_DUB почему-то скрытая форма с кнопкой прокликивается только на второй раз -->
+			<h:form id="hiddenForm" style="display: none;">
+				<h:inputHidden id="someData" />
+				<h:commandButton id="invisibleClickTarget">
+					<f:ajax execute="@form" listener="#{fooModal.finish}" />
+				</h:commandButton>
+			</h:form>
 
 		</h:panelGroup>
 	</rich:popupPanel>
 
-	<h2>Main modal page. Random generated button present here, than
-		opens modal window</h2>
+	<br />
+	<br />
+
+	<label>Main modal page. Random generated button present here, than
+		opens modal window (non actual now)</label>
 	<h:form>
-		<h:commandButton style="width: 420px" type="button" id="modalButton"
+		<h:commandButton style="width: 100px" type="button" id="modalButton"
 			value="#{modal.randButtonTitle}"
 			onclick="showModal(this.value); return false;">
 		</h:commandButton>
 		<script language="javascript">
+			
 			function showModal(buttonLabel) {
-				
-				//var buttonLabel = "get button label from DOM";
-				console.log("buttonLabel 2 = " + buttonLabel);
 				var modalPageName = getModalPageName(buttonLabel);
-				console.log("modalPageName = " + modalPageName);
-				
 				var reportUrl = window.open(
 						'/jsftest-web/fcs/' + modalPageName + '.xhtml', '',
 						'dialogWidth:600px;dialogHeight:620px');
