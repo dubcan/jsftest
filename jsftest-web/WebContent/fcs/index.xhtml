@@ -5,21 +5,24 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
 	<title>Test JSF main menu</title>
 </h:head>
 <h:body>
-
+	
 	<h:form>
-		<h:commandButton value="Перейти на страницу со случайной кнопкой (Foo, Bar, Baz), которая вызовет модальный диалог"
+		<h:commandButton
+			value="Перейти на страницу со случайной кнопкой (Foo, Bar, Baz), которая вызовет модальный диалог"
 			action="#{modal.getMainModal}">
 		</h:commandButton>
 	</h:form>
 	<br />
 	<br />
-	
+
 	<h:link outcome="bindcard/bindCard.xhtml"
 		value="Bind card (старая неактуальная версия нескольких форм)" />
 	<br />

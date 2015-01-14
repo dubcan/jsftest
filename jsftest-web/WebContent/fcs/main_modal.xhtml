@@ -18,26 +18,135 @@
 		<rich:componentControl target="popup" operation="show" />
 	</h:commandButton>
 	<rich:popupPanel id="popup" modal="true" resizeable="true"
-		onmaskclick="youShallNotPass();">
+		>
+
 		<f:facet name="header">
 			<h:outputText value="Simple popup panel" />
 		</f:facet>
+
 		<f:facet name="controls">
 			<h:outputLink value="#"
 				onclick="#{rich:component('popup')}.hide(); return false;">
                 X
             </h:outputLink>
 		</f:facet>
-		<p>You can also check and trigger events if the use clicks outside
-			of the panel.</p>
 
-		<p>In this example clicking outside closes the panel.</p>
-	</rich:popupPanel>
-	<script language="javascript">
-				function youShallNotPass() {
-					console.log("you shall not pass");
+		<h:panelGroup layout="block" id="content">
+			<h:form id="fio" rendered="#{!fooModal.nextButtonClicked}">
+				<table>
+					<tr>
+						<td colspan="3" class="contTitle">Foo modal form. Step 1. FIO</td>
+					</tr>
+					<tr>
+						<td>Фамилия <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="firstName" style="width: 200px"
+								value="#{fooModal.firstName}" required="true" maxlength="30"
+								requiredMessage="Поле 'Фамилия' обязательно для заполнения" /></td>
+					</tr>
+
+					<tr>
+						<td>Имя <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="secondName" style="width: 200px"
+								required="true" maxlength="30" value="#{fooModal.secondName}"
+								requiredMessage="Поле 'Имя' обязательно для заполнения" /></td>
+					</tr>
+					<tr>
+						<td>Отчество</td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="lastName" style="width: 200px"
+								value="#{fooModal.lastName}" maxlength="30" /></td>
+					</tr>
+
+				</table>
+				<h:commandButton value="Дальше" action="#{fooModal.next}" >
+					<f:ajax render=":content :address" />
+				</h:commandButton>
+			</h:form>
+
+			<h:form id="address" rendered="#{fooModal.nextButtonClicked}">
+				<table>
+					<tr>
+						<td colspan="3" class="contTitle">Foo modal form. Step 2.
+							Address</td>
+					</tr>
+					<tr>
+						<td>Страна <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="country" style="width: 200px"
+								required="true" maxlength="30" value="#{fooModal.country}" /></td>
+					</tr>
+
+
+					<tr>
+						<td>Город <font color="red">*</font></td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="city" style="width: 200px"
+								value="#{fooModal.city}" required="true" maxlength="30" /></td>
+					</tr>
+					<tr>
+						<td>Улица</td>
+						<td style="width: 25px"></td>
+						<td><h:inputText id="street" style="width: 200px"
+								value="#{fooModal.street}" maxlength="30" /></td>
+					</tr>
+
+				</table>
+				<h:commandButton value="Завершить" action="#{fooModal.finish}">
+					<!-- <f:ajax execute="@form" render="@form" /> -->
+				</h:commandButton>
+			</h:form>
+
+			<script language="javascript">
+				function closeWindow() {
+					console.log("close window!!");
+					window.close();
 				}
 			</script>
+
+		</h:panelGroup>
+	</rich:popupPanel>
+
+	<h2>Main modal page. Random generated button present here, than
+		opens modal window</h2>
+	<h:form>
+		<h:commandButton style="width: 420px" type="button" id="modalButton"
+			value="#{modal.randButtonTitle}"
+			onclick="showModal(this.value); return false;">
+		</h:commandButton>
+		<script language="javascript">
+			function showModal(buttonLabel) {
+				
+				//var buttonLabel = "get button label from DOM";
+				console.log("buttonLabel 2 = " + buttonLabel);
+				var modalPageName = getModalPageName(buttonLabel);
+				console.log("modalPageName = " + modalPageName);
+				
+				var reportUrl = window.open(
+						'/jsftest-web/fcs/' + modalPageName + '.xhtml', '',
+						'dialogWidth:600px;dialogHeight:620px');
+				if (reportUrl !== undefined) {
+					window.open('' + reportUrl);
+				}
+			}
+			
+			function getModalPageName(buttonTitle) {
+				switch (buttonTitle) {
+				  case "Foo":
+					  return "foo_modal";
+				  case "Bar":
+					  return "bar_modal";
+				  case "Baz":
+					  return "baz_modal";
+				  default:
+				    alert('Unknown button')
+				}
+				
+			}
+			
+		</script>
+	</h:form>
 
 </h:body>
 </html>
